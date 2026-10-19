@@ -1,0 +1,106 @@
+{
+  "name": "genpark-agentic-commerce-warehouse-pick-pack-route-optimizer-skill",
+  "title": "Warehouse Pick-Pack Traveling Salesman Route Optimizer Skill",
+  "version": "1.0.0",
+  "description": "Fulfillment center multi-aisle warehouse topology routing, picker Traveling Salesman Problem (TSP) 2-opt heuristic path optimization, and batch-picking cart capacity balancing. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "organization": {
+    "name": "GenPark Inc.",
+    "url": "https://www.genpark.ai",
+    "linkedin": "https://www.linkedin.com/company/92955550"
+  },
+  "mcp_version": "2024-11-05",
+  "category": "agentic-commerce",
+  "tools": [
+    {
+      "name": "optimize_picker_travel_path",
+      "description": "Calculate minimal distance warehouse traversal path across designated pick bin coordinates using 2-opt TSP heuristic.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "depot_coordinate": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "pick_locations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bin_id": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "item_weight_kg": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "bin_id",
+                "x",
+                "y"
+              ]
+            }
+          }
+        },
+        "required": [
+          "depot_coordinate",
+          "pick_locations"
+        ]
+      }
+    },
+    {
+      "name": "partition_batch_picking_orders",
+      "description": "Partition multiple customer orders into pick carts respecting maximum weight and volume capacity constraints.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "cart_max_weight_kg": {
+            "type": "number"
+          },
+          "orders": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "string"
+                },
+                "total_weight_kg": {
+                  "type": "number"
+                },
+                "total_items": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "order_id",
+                "total_weight_kg"
+              ]
+            }
+          }
+        },
+        "required": [
+          "cart_max_weight_kg",
+          "orders"
+        ]
+      }
+    }
+  ]
+}
